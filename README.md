@@ -140,3 +140,9 @@ For the initial evaluation, we aim to test the tool with at least 5 participants
 At minimum, we would consider the results promising if most participants report that the tool helps them understand or discuss the AI-IN/AI-OUT boundary more clearly, and if we observe improved consistency or confidence in their decisions after using the tool.
 
 The exact quantitative success threshold may be refined during CP1 after the interaction design and evaluation procedure are finalized.
+
+
+## TEST
+
+test
+

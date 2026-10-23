@@ -7,11 +7,31 @@
 - 李典陽 - 314551170
 
 ## Collaboration Problem
-Things or topics that we keep AI IN and OUT of.
+
+University students working on group software projects may have different expectations about when AI should or should not be used.
+
+For example, one member may be comfortable using AI to generate code, while another may prefer using AI only for debugging or explanations. Without a clear agreement, these differences may cause misunderstandings about how tasks should be completed and reviewed.
+
+Our project focuses on helping team members discuss, compare, and agree on their boundaries for AI usage.
 
 ## Project Description
-This project explores when AI should and should not be involved
-in different stages of collaborative software development.
+
+Our proposed project is AI Boundary Board, a collaborative tool that helps students decide when AI should be involved in group assignments and software development tasks.
+
+The tool will allow users to:
+
+Create a shared project and add activities or topics.
+
+Choose whether AI should be allowed, limited, or not allowed for each activity.
+
+Explain the reasons behind their choices.
+
+Compare their preferences with other team members.
+
+Discuss disagreements and record a final shared agreement.
+
+The goal is not to replace human decision-making, but to make discussions about AI usage clearer and more transparent.
+
 
 ## Course
 AI-in-the-Loop in Software Project Cycle
@@ -71,72 +91,54 @@ A majority vote alone is not considered sufficient evidence that an AI-generated
 
 ## Problem Grounding
 
-### 1. Who specifically has the collaboration problem?
+Our target users are university students working in small teams on software or technical projects.
 
-Our target users are university students working in small teams on software projects where generative AI tools such as ChatGPT or GitHub Copilot are available.
+We want to investigate whether different expectations about AI usage create difficulties during collaboration.
 
-These teams may have different opinions about when AI assistance is appropriate. For example, one member may be comfortable using AI to generate code or make suggestions, while another may prefer certain tasks or decisions to remain entirely human-controlled.
-
-This can create uncertainty about when AI should be involved and who remains responsible for the final decision.
-
-### 2. What do they currently do instead of our tool?
-
-Currently, team members usually decide individually whether to use AI for a task. They may discuss AI usage informally through group chats, meetings, or pull request discussions.
-
-There is often no shared and explicit boundary defining which tasks are appropriate for AI assistance and which tasks should remain human-controlled.
-
-As a result, different team members may follow different personal standards for AI usage.
-
-### 3. What would be observably different if our tool worked?
-
-If our tool works, team members should be able to reach clearer and more consistent decisions about whether AI should be involved in a particular task.
-
-We would expect:
-
-* fewer unresolved disagreements about whether AI should be used;
-* greater agreement among team members about AI-IN and AI-OUT situations;
-* clearer understanding of why AI is or is not appropriate for a task; and
-* clearer human responsibility for final decisions even when AI is involved.
-
-# Evaluation Plan
+We will conduct interviews with at least two students outside our team to understand their experiences, how they currently discuss AI usage, and whether existing tools sufficiently support those discussions.
 
 ## Success Definition
 
-We will know our tool works if team members can use it to make clearer and more consistent decisions about when AI should and should not be involved in collaborative tasks.
+We will know our tool works if students can use it to compare their AI usage preferences, identify disagreements, and create a shared agreement.
 
-We will compare participants' decisions and confidence before and after using the tool. We will also examine whether disagreements about AI usage can be resolved more clearly with the tool.
-
-The AI may provide recommendations or information about whether AI involvement is appropriate for a particular task, but it will not make the final decision. Human team members remain responsible for deciding whether AI is used.
-
-Therefore, our evaluation focuses on whether the AI's suggestions are useful enough to help human decision-making rather than whether the AI can autonomously make the correct decision.
+We will measure whether users can complete the main workflow without assistance, understand their teammates' preferences, and find their final agreement afterward.
 
 ## Target Users
 
-Our target users are university students who regularly work in small teams on software or technical projects and have experience using generative AI tools.
+We plan to recruit at least six university students, working in three pairs, who have experience with group assignments and generative AI tools.
 
-For the initial evaluation, we plan to recruit students from our university or classmates who have experience with team projects and AI-assisted work.
+Participants will be recruited from classmates or other students outside our development team.
 
-## Method
+## Evaluation Method
 
-We plan to conduct a small user study.
+After completing an initial working prototype, we plan to conduct a small user study during a later project checkpoint.
 
-Participants will first be given several collaborative scenarios involving possible AI use and asked whether they would keep AI IN or OUT and why.
+Each pair will receive a group assignment scenario involving several possible uses of AI.
 
-They will then complete similar decisions using our tool.
+First, participants will individually decide whether AI should be allowed for each activity.
 
-We will collect:
+Then, they will use AI Boundary Board to compare their choices, discuss disagreements, and record a final agreement.
 
-* participants' decisions;
-* their confidence in those decisions;
-* the amount or type of disagreement between participants; and
-* short qualitative feedback through a post-task questionnaire or interview.
-
-We will compare the results before and after using the tool to determine whether it helps participants make clearer and more consistent decisions.
+We will observe the process and collect short feedback through a questionnaire.
 
 ## Minimum Evidence Threshold
 
-For the initial evaluation, we aim to test the tool with at least 5 participants who have experience with both team projects and generative AI.
+We will consider the initial evaluation promising if:
 
-At minimum, we would consider the results promising if most participants report that the tool helps them understand or discuss the AI-IN/AI-OUT boundary more clearly, and if we observe improved consistency or confidence in their decisions after using the tool.
+At least two out of three pairs complete the main workflow without direct assistance.
 
-The exact quantitative success threshold may be refined during CP1 after the interaction design and evaluation procedure are finalized.
+At least two pairs successfully identify and resolve or document their disagreements.
+
+The average clarity rating is at least 4 out of 5.
+
+Participants can locate their final shared agreement after completing the task.
+
+These are initial targets and may be adjusted based on early user feedback.
+
+## Human-AI Boundary
+
+For the initial prototype, we propose using rule-based logic to compare users' selections and highlight disagreements without generating AI recommendations.
+
+Human users will decide which activities allow AI, what restrictions are needed, and what the final agreement should be.
+
+We may consider optional AI-assisted recommendations in later versions, but final decisions will remain with human team members.

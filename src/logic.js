@@ -1,3 +1,5 @@
+export const AI_REQUEST_TIMEOUT_MS = 60000;
+
 export const CATEGORIES = [
   { id: 'allowed', label: 'AI Allowed', short: 'Allowed' },
   { id: 'limited', label: 'AI Limited', short: 'Limited' },

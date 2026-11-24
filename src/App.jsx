@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, ArrowRight, ArrowLeft, Sparkles, Check, AlertCircle, Users, ClipboardList, Scale, FileCheck2, Download, RotateCcw, Trash2, ShieldCheck, WandSparkles, CircleHelp, CheckCircle2, Menu, X, BookOpen } from 'lucide-react';
-import { CATEGORIES, AI_REQUEST_TIMEOUT_MS, createProject, getComparison, getStats, getAgreementText, isValidProject } from './logic.js';
+import { CATEGORIES, AI_REQUEST_TIMEOUT_MS, createProject, getComparison, prefillAlignedAgreement, getStats, getAgreementText, isValidProject } from './logic.js';
 
 const STORE_KEY = 'group09-ai-boundary-board-v1';
 const steps = [{name:'Project setup',hint:'Set up your team'},{name:'Preferences',hint:'Two individual views'},{name:'Compare',hint:'Spot disagreements'},{name:'Agreement',hint:'Decide together'}];
@@ -37,7 +37,7 @@ export default function App() {
  const demo = () => {const p=createProject('Programming Group Assignment','Alex','Jamie');p.preferences[0]={brainstorm:{category:'allowed',reason:'Good for generating ideas'},coding:{category:'limited',reason:'AI code must be reviewed'},debug:{category:'allowed',reason:'Useful for finding bugs'},report:{category:'limited',reason:'Always proofread'}};p.preferences[1]={brainstorm:{category:'allowed',reason:'Helps us start'},coding:{category:'not_allowed',reason:'Prefer writing code manually'},debug:{category:'limited',reason:'Only for explanations'},report:{category:'limited',reason:'Always proofread'}};p.agreement.brainstorm={category:'allowed',condition:'Check any factual claims'};setProject(p);setPage(2);setSuggestion(null);notify('Sample project loaded. Try the compare tab!')};
  const reset=()=>{if(window.confirm('Clear the local project and start again?')){setProject(null);setPage(0);setSuggestion(null);notify('Project cleared')}};
  const download=()=>{if(!project)return; const blob=new Blob([getAgreementText(project).join('\n')],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='ai-boundary-agreement.txt';a.click();URL.revokeObjectURL(url);notify('Agreement downloaded')};
- const navigate=(n)=>{setPage(n);setNavOpen(false);setSuggestion(null)};
+ const navigate=(n)=>{if(n===3)setProject(prefillAlignedAgreement);setPage(n);setNavOpen(false);setSuggestion(null)};
  const allCompared = rows.length>0 && rows.every(r=>r.complete);
  const allDecided = !!project && rows.length>0 && rows.every(r=>r.final?.category);
  const recommend = async (row,conditionsOnly=false) => {

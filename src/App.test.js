@@ -45,6 +45,44 @@ test('agreement requires both members to answer every perspective', async (t) =>
       });
     }
   }
+  for (const entry of ['Create agreement', 'Agreement']) {
+    await t.test(entry + ' prefills aligned policies and preserves later edits', async () => {
+      const p = createProject();
+      const categories = ['allowed', 'limited', 'not_allowed', 'allowed'];
+      p.preferences = p.members.map((member, index) => Object.fromEntries(p.activities.map((a, i) => [a.id, { category: index === 1 && a.id === 'report' ? 'limited' : categories[i], reason: member + "'s reason" }])));
+      window.localStorage.setItem('group09-ai-boundary-board-v1', JSON.stringify(p));
+      const nav = name => [...window.document.querySelectorAll('nav button')].find(b => b.querySelector('strong').textContent === name);
+      const stored = () => JSON.parse(window.localStorage.getItem('group09-ai-boundary-board-v1'));
+      const card = title => [...window.document.querySelectorAll('.agreements > .agreement-card')].find(c => c.querySelector('h3').textContent === title);
+      const selected = title => card(title).querySelector('.choice[aria-pressed="true"]');
+      await act(() => root.render(React.createElement(App, { key: entry })));
+      await act(() => nav('Compare').click());
+      assert.deepEqual(stored().agreement, {});
+      const enter = entry === 'Agreement' ? nav(entry) : [...window.document.querySelectorAll('button')].find(b => b.textContent.trim() === entry);
+      await act(() => enter.click());
+      assert.deepEqual(stored().agreement, { brainstorm: { category: 'allowed' }, coding: { category: 'limited' }, debug: { category: 'not_allowed' } });
+      assert.deepEqual(stored().preferences, p.preferences);
+      for (const [title, category] of [['Brainstorming', 'allowed'], ['Writing code', 'limited'], ['Debugging', 'not_allowed']]) {
+        assert.ok(selected(title).classList.contains(category));
+        assert.equal(card(title).querySelector('input').value, '');
+      }
+      assert.equal(selected('Final report'), null);
+      assert.match(window.document.querySelector('.download-panel').textContent, /3 of 4 policies recorded/);
+      assert.equal(window.document.querySelector('.download-panel button').disabled, true);
+      await act(() => card('Brainstorming').querySelector('.choice.limited').click());
+      await act(() => card('Final report').querySelector('.choice.not_allowed').click());
+      assert.equal(window.document.querySelector('.download-panel button').disabled, false);
+      const edited = stored();
+      await act(() => nav('Compare').click());
+      await act(() => nav('Agreement').click());
+      assert.deepEqual(stored(), edited);
+      await act(() => root.render(React.createElement(App, { key: entry + '-reload' })));
+      await act(() => nav('Agreement').click());
+      assert.ok(selected('Brainstorming').classList.contains('limited'));
+      assert.ok(selected('Final report').classList.contains('not_allowed'));
+      assert.deepEqual(stored(), edited);
+    });
+  }
   await t.test('optional AI suggestions stay separate until explicitly used as a draft', async t => {
     const originalFetch = globalThis.fetch;
     const originalConfirm = window.confirm;
@@ -161,6 +199,7 @@ test('agreement requires both members to answer every perspective', async (t) =>
     });
     const conditionButton = title => window.document.querySelector(`[aria-label="Get AI condition suggestions for ${title}"]`);
     const agreementCard = title => [...window.document.querySelectorAll('.agreements > .agreement-card')].find(c => c.querySelector('h3').textContent === title);
+    const alignedPolicies = { brainstorm: { category: 'allowed' }, debug: { category: 'allowed' }, report: { category: 'allowed' } };
     const loadAgreement = async p => { await load(p); await act(() => nav('Agreement').click()); };
     await t.test('agreement requires a selected policy before generating conditions', async () => {
       let calls = 0;
@@ -181,7 +220,7 @@ test('agreement requires both members to answer every perspective', async (t) =>
       assert.equal(requests.length, 0);
       await act(() => conditionButton('Writing code').click());
       assert.deepEqual(requests[0], { activity: p.activities[1], preferences: [p.preferences[0].coding, p.preferences[1].coding], agreement: p.agreement.coding });
-      assert.deepEqual(stored().agreement, p.agreement);
+      assert.deepEqual(stored().agreement, { ...alignedPolicies, ...p.agreement });
       assert.match(agreementCard('Writing code').querySelector('.ai-panel h3').textContent, /AI conditions/);
       assert.equal(button('Use as draft'), undefined);
       await act(() => button('Use for condition').click());
@@ -202,7 +241,7 @@ test('agreement requires both members to answer every perspective', async (t) =>
       assert.deepEqual(requests[0].agreement, p.agreement.coding);
       window.confirm = () => false;
       await act(() => button('Use for condition').click());
-      assert.deepEqual(stored().agreement, p.agreement);
+      assert.deepEqual(stored().agreement, { ...alignedPolicies, ...p.agreement });
       window.confirm = () => true;
       await act(() => button('Use for condition').click());
       assert.deepEqual(stored().agreement.coding, { category: 'limited', condition: result.options[0].condition });
@@ -235,7 +274,7 @@ test('agreement requires both members to answer every perspective', async (t) =>
       assert.ok(button('Use for condition'));
       await act(() => button('Skip').click());
       assert.equal(window.document.querySelector('.ai-panel'), null);
-      assert.deepEqual(stored().agreement, p.agreement);
+      assert.deepEqual(stored().agreement, { ...alignedPolicies, ...p.agreement });
     });
   });
 });

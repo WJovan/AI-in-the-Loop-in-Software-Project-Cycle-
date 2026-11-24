@@ -135,10 +135,9 @@ Participants can locate their final shared agreement after completing the task.
 
 These are initial targets and may be adjusted based on early user feedback.
 
-## Human-AI Boundary
+## AI suggestions
 
-For the initial prototype, we propose using rule-based logic to compare users' selections and highlight disagreements without generating AI recommendations.
+AI suggestions are optional and require a configured API key.
 
-Human users will decide which activities allow AI, what restrictions are needed, and what the final agreement should be.
-
-We may consider optional AI-assisted recommendations in later versions, but final decisions will remain with human team members.
+Copy `.env.example` to `.env` in the project root, or add these variables to an existing `.env`. Fill only the keys you have and leave the others empty.
+The server uses the first non-empty API key in this order: **Claude → GPT → Gemini**.

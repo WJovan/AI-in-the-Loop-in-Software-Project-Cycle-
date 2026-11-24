@@ -38,6 +38,16 @@ export function getComparison(project) {
   });
 }
 
+export function prefillAlignedAgreement(project) {
+  const aligned = getComparison(project).filter(row => row.complete && !row.disagrees && !row.final?.category);
+  if (!aligned.length) return project;
+  const agreement = { ...project.agreement };
+  for (const { activity, a, final } of aligned) {
+    agreement[activity.id] = { ...final, category: a.category };
+  }
+  return { ...project, agreement };
+}
+
 export function getStats(project) {
   const rows = getComparison(project);
   return {

@@ -142,3 +142,7 @@ For the initial prototype, we propose using rule-based logic to compare users' s
 Human users will decide which activities allow AI, what restrictions are needed, and what the final agreement should be.
 
 We may consider optional AI-assisted recommendations in later versions, but final decisions will remain with human team members.
+
+## Updated AI Usage Guidelines (Week 12)
+
+See our [Week 12 AI Usage Guidelines](docs/WEEK12_AI_USAGE_GUIDELINES.md) for the updated rules on AI-assisted development, human review, and decision documentation.

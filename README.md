@@ -60,7 +60,7 @@ In general, AI is used as an assistant rather than a decision-maker. Humans rema
 
 ## 2. How We Will Document AI Interactions
 
-AI interactions that significantly contribute to the project will be documented.
+All AI interactions that significantly contribute to the project will be documented in [DECISIONS.md](DECISIONS.md).
 
 An interaction should be recorded when AI:
 
@@ -69,7 +69,7 @@ An interaction should be recorded when AI:
 * helps solve a significant technical problem; or
 * contributes to a project decision.
 
-For these interactions, we will record the AI tool/model used, the purpose of the interaction, a summary of the prompt, and what parts of the AI output were accepted, modified, or rejected.
+For these interactions, the DECISIONS.md entry will record the date, AI tool/model used, purpose, prompt or an accurate summary, relevant AI output.
 
 Small interactions such as syntax lookups, explanations of basic concepts, or minor debugging questions do not need to be individually documented unless their output directly becomes part of the project.
 
@@ -141,3 +141,9 @@ AI suggestions are optional and require a configured API key.
 
 Copy `.env.example` to `.env` in the project root, or add these variables to an existing `.env`. Fill only the keys you have and leave the others empty.
 The server uses the first non-empty API key in this order: **Claude → GPT → Gemini**.
+
+## Agent rules and AI prompt documentation
+
+- [Coding-agent project rules](CLAUDE.md): verification requirements, test-change approval, and where to record AI assistance.
+- [Runtime system prompt](docs/AI_SYSTEM_PROMPT.md): exact product AI instructions, request context, and human decision boundaries.
+- [Prompt documentation card](PROMPT_CARD.md): model configuration, input/output examples, failure handling, verification evidence, and known limitations.

@@ -148,3 +148,9 @@ If AI suggestions are unavailable, users can still compare preferences and creat
 ## Updated AI Usage Guidelines (Week 12)
 
 See our [Week 12 AI Usage Guidelines](docs/WEEK12_AI_USAGE_GUIDELINES.md) for the updated rules on AI-assisted development, human review, and decision documentation.
+## AI suggestions
+
+AI suggestions are optional and require a configured API key.
+
+Copy `.env.example` to `.env` in the project root, or add these variables to an existing `.env`. Fill only the keys you have and leave the others empty.
+The server uses the first non-empty API key in this order: **Claude → GPT → Gemini**.

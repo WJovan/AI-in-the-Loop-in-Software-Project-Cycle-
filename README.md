@@ -135,13 +135,15 @@ Participants can locate their final shared agreement after completing the task.
 
 These are initial targets and may be adjusted based on early user feedback.
 
-## Human-AI Boundary
+## Human–AI Boundary
 
-For the initial prototype, we propose using rule-based logic to compare users' selections and highlight disagreements without generating AI recommendations.
+The initial prototype used rule-based logic to compare users' preferences and highlight disagreements.
 
-Human users will decide which activities allow AI, what restrictions are needed, and what the final agreement should be.
+For CP2, we added optional AI-assisted boundary suggestions through PR #16. AI can suggest restrictions based on users' preferences and disagreements.
 
-We may consider optional AI-assisted recommendations in later versions, but final decisions will remain with human team members.
+However, AI does not make the final decision. Users must review the suggestions and decide which boundaries to include in their final agreement.
+
+If AI suggestions are unavailable, users can still compare preferences and create agreements manually.
 
 ## Updated AI Usage Guidelines (Week 12)
 
